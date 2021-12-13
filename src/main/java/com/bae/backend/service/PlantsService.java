@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.bae.backend.entity.Plants;
+import com.bae.backend.exceptions.PlantsNotFoundException;
 import com.bae.backend.repo.PlantsRepo;
 
 

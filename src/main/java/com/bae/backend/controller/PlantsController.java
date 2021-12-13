@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bae.backend.entity.Plants;
+import com.bae.backend.exceptions.MonthNotFoundException;
+import com.bae.backend.exceptions.PlantsNotFoundException;
 import com.bae.backend.service.PlantsService;
 
 
