@@ -21,7 +21,7 @@ import com.bae.backend.service.PlantsService;
 
 
 
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RestController
 public class PlantsController {
 	

@@ -1,47 +1,69 @@
 package com.bae.backend.exceptions;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.fail;
 
-import org.junit.Rule;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
 import com.bae.backend.entity.Plants;
 import com.bae.backend.repo.PlantsRepo;
 import com.bae.backend.service.PlantsService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc // sets up the mockmvc object
-@Sql(scripts = { "classpath:plant-schema.sql",
-		"classpath:plant-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 @ActiveProfiles("test")
 public class CustomExceptionTesting {
 	
 	@MockBean 
 	private PlantsRepo repo;
 	
-	@MockBean
+	@Autowired
 	private PlantsService service;
 	
-	@Rule
-	public PlantsNotFoundException thrown = new PlantsNotFoundException();
 	
-	@Test
+	@Test  
 	void testNoPlantID() {		
 		Plants plant = new Plants();
 		plant.setId(null);
-		Mockito.when(this.repo.findById(1)).thenThrow( new PlantsNotFoundException());
+		Mockito.when(this.repo.findById(1)).thenReturn(Optional.ofNullable(null));
+		try {
+			this.service.getByID(1);
+		} catch (PlantsNotFoundException e) {
+			assertThat(e.getMessage().equals("No plant found with that id"));
+			return; // this stops it if the assert passes
+		}
+		fail(); // this will only be gotten to if the assertThat doesnt do what expected. thrown and not caught will be 500 - can tell spring to put them as a 404
+	}
+	
+	@Test  
+	void testMonthNotFound() throws MonthNotFoundException {		
+		Plants plant = new Plants(1, "Daffodil", "green", "October", "sun", "Yellow");
+		Plants plant2 = new Plants(2, "Daffodil", "green", "October", "sun", "Yellow");
+		List<Plants> plantList = new ArrayList();
+		plantList.add(plant);
+		plantList.add(plant2);
 		
-		assertThat(thrown.getMessage().equals("No plant found with that id"));
+		Mockito.when(this.repo.save(plant)).thenReturn(plant);
+		Mockito.when(this.repo.save(plant2)).thenReturn(plant2);
+		Mockito.when(this.repo.getAllByPlantingMonth("November")).thenReturn(plantList);
+		if (this.service.getSaved("November").isEmpty()) {
+		try {
+			this.service.getByPlantingMonth("November");
+		} catch (MonthNotFoundException e) {
+			assertThat(e.getMessage().equals("No plant found with that planting month"));
+			return; 
+		}
+		fail(); 
+	}
 	}
 
 }
