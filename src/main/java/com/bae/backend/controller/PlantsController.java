@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,5 +59,11 @@ public class PlantsController {
 		Plants body = this.service.updatePlant(newPlant, id);
 		ResponseEntity<Plants> response = new ResponseEntity<Plants>(body, HttpStatus.ACCEPTED);
 		return response;
+	}
+	@DeleteMapping("/deletePlant/{id}") 
+	public ResponseEntity<Plants> deletePlant(@PathVariable Integer id) {
+		this.service.deletePlant(id);
+		ResponseEntity<Plants> response = new ResponseEntity<Plants>(HttpStatus.NO_CONTENT);
+		return response; 
 	}
 }
