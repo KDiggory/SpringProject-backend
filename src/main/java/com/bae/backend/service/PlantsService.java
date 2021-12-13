@@ -40,6 +40,7 @@ public class PlantsService {
 		});
 		return saved;
 	}
+	
 	public List<Plants> getByPlantingMonth(String month)  throws MonthNotFoundException  { 
 		List<Plants> saved = this.repo.getAllByPlantingMonth(month);
 		if (saved.isEmpty()) {
@@ -47,6 +48,13 @@ public class PlantsService {
 		       throw new MonthNotFoundException("No plant found with that planting month");
 		}
 		return saved;
+	}
+	
+	// this is an extra method I had to write in order to test the custom exception
+	public List<Plants> getSaved(String month) {
+		List<Plants> saved = this.repo.getAllByPlantingMonth(month);
+		return saved;
+		
 	}
 
 	public Plants getPlantByName(String name) throws PlantsNotFoundException {
