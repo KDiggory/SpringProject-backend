@@ -51,7 +51,7 @@ public class PlantsController {
 	}
 	
 	@GetMapping("/getPlantByName/{name}")
-	public ResponseEntity<Plants> getPlantByName(@PathVariable String name) {
+	public ResponseEntity<Plants> getPlantByName(@PathVariable String name) throws PlantsNotFoundException {
 		return ResponseEntity.ok(this.service.getPlantByName(name));
 	}
 	@GetMapping("/getPlantByMonth/{month}")
@@ -61,7 +61,7 @@ public class PlantsController {
 	
 	
 	@PutMapping("/updatePlant/{id}") 
-	public ResponseEntity<Plants> updatePlant(@PathVariable Integer id, @RequestBody Plants newPlant) {
+	public ResponseEntity<Plants> updatePlant(@PathVariable Integer id, @RequestBody Plants newPlant) throws PlantsNotFoundException {
 		Plants body = this.service.updatePlant(newPlant, id);
 		ResponseEntity<Plants> response = new ResponseEntity<Plants>(body, HttpStatus.ACCEPTED);
 		return response;
