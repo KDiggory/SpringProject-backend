@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.bae.backend.entity.Plants;
+import com.bae.backend.exceptions.MonthNotFoundException;
+import com.bae.backend.exceptions.PlantsNotFoundException;
 import com.bae.backend.repo.PlantsRepo;
 
 
@@ -38,47 +40,36 @@ public class PlantsService {
 		});
 		return saved;
 	}
-	public List<Plants> getByPlantingMonth(String month)  { //throws MonthNotFoundException
-		return this.repo.getAllByPlantingMonth(month);
+	public List<Plants> getByPlantingMonth(String month)  throws MonthNotFoundException  { 
+		List<Plants> saved = this.repo.getAllByPlantingMonth(month);
+		if (saved.isEmpty()) {
+		      
+		       throw new MonthNotFoundException("No plant found with that planting month");
+		}
+		return saved;
 	}
-//	.orElseThrow(() -> {
-//		      
-//		       return new MonthNotFoundException("No plant found with that planting month");
-//		});
-//		return saved;
-//	}
-	public List<Plants> getByPlantingPosition(String position)  { //throws PlantingPositionNotFoundException
-		return this.repo.getAllByPlantingPosition(position);
+
+	public Plants getPlantByName(String name) throws PlantsNotFoundException {
+		Plants saved =  this.repo.getByName(name).orElseThrow(() ->{
+			return new PlantsNotFoundException("No plant found with that name");
+		});
+		return saved;
 	}
-//				.orElseThrow(() -> {
-//		      
-//		       return new PlantingPositionNotFoundException("No plant found with that planting position");
-//		});
-//		return saved;
-//	}
-//	
-	public Plants getPlantByName(String name) {
-		return this.repo.getByName(name);
-	}
-	public Plants updatePlant(Plants plant, Integer id) {
-		Plants toUpdate = this.repo.findById(id).get();
+	
+	public Plants updatePlant(Plants plant, Integer id) throws PlantsNotFoundException {
+		Plants toUpdate = this.repo.findById(id).orElseThrow(() -> {
+			return new PlantsNotFoundException("No plant found with that id");
+		});
 		toUpdate.setName(plant.getName());
 		toUpdate.setFoliageColour(plant.getFoliageColour());
 		toUpdate.setPlantingMonth(plant.getPlantingMonth());
 		toUpdate.setPlantingPosition(plant.getPlantingPosition());
 		toUpdate.setFlowerColour(plant.getFlowerColour());
-		return this.repo.save(toUpdate);
-		
+		Plants update = this.repo.save(toUpdate);
+
+		return update;
 	}
-	public Plants updatePlantByName(String name, Plants newPlant) {
-		Plants toUpdate = this.repo.getByName(name);
-		toUpdate.setFoliageColour(toUpdate.getFoliageColour());
-		toUpdate.setPlantingMonth(toUpdate.getPlantingMonth());
-		toUpdate.setPlantingPosition(toUpdate.getPlantingPosition());
-		toUpdate.setFlowerColour(toUpdate.getFlowerColour());
-		return this.repo.save(toUpdate);
 		
-	}
 	public boolean deletePlant(Integer id) {
 		this.repo.deleteById(id);
 		boolean exists = this.repo.existsById(id);
