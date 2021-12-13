@@ -28,6 +28,16 @@ public class Plants {
 		this.plantingPosition = plantingPosition;
 		this.flowerColour = flowerColour;
 	}
+	
+	public Plants(String name, String foliageColour, String plantingMonth, String plantingPosition,
+			String flowerColour) {
+		super();
+		this.name = name;
+		this.foliageColour = foliageColour;
+		this.plantingMonth = plantingMonth;
+		this.plantingPosition = plantingPosition;
+		this.flowerColour = flowerColour;
+	}
 
 
 	public Plants() {
