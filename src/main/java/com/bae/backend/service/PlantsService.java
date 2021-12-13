@@ -41,10 +41,11 @@ public class PlantsService {
 		return saved;
 	}
 	public List<Plants> getByPlantingMonth(String month)  throws MonthNotFoundException  { 
-		List<Plants> saved = this.repo.getAllByPlantingMonth(month).orElseThrow(() -> {
+		List<Plants> saved = this.repo.getAllByPlantingMonth(month);
+		if (saved.isEmpty()) {
 		      
-		       return new MonthNotFoundException("No plant found with that planting month");
-		});
+		       throw new MonthNotFoundException("No plant found with that planting month");
+		}
 		return saved;
 	}
 
@@ -56,30 +57,16 @@ public class PlantsService {
 	}
 	
 	public Plants updatePlant(Plants plant, Integer id) throws PlantsNotFoundException {
-		Plants toUpdate = this.repo.findById(id).get();
+		Plants toUpdate = this.repo.findById(id).orElseThrow(() -> {
+			return new PlantsNotFoundException("No plant found with that id");
+		});
 		toUpdate.setName(plant.getName());
 		toUpdate.setFoliageColour(plant.getFoliageColour());
 		toUpdate.setPlantingMonth(plant.getPlantingMonth());
 		toUpdate.setPlantingPosition(plant.getPlantingPosition());
 		toUpdate.setFlowerColour(plant.getFlowerColour());
-		Plants update = this.repo.save(toUpdate).orElseThrow(() -> {
-		      
-		       return new PlantsNotFoundException("No plant found with that id");
-		});
-		return update;
-	}
-		
-	
-	public Plants updatePlantByName(String name, Plants newPlant) throws PlantsNotFoundException {
-		Plants toUpdate = this.repo.getByName(name);
-		toUpdate.setFoliageColour(toUpdate.getFoliageColour());
-		toUpdate.setPlantingMonth(toUpdate.getPlantingMonth());
-		toUpdate.setPlantingPosition(toUpdate.getPlantingPosition());
-		toUpdate.setFlowerColour(toUpdate.getFlowerColour());
-		Plants update = this.repo.save(toUpdate).orElseThrow(() -> {
-		      
-		       return new PlantsNotFoundException("No plant found with that id");
-		});
+		Plants update = this.repo.save(toUpdate);
+
 		return update;
 	}
 		
