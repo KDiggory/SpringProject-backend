@@ -44,7 +44,7 @@ public class CustomExceptionTesting {
 		fail(); // this will only be gotten to if the assertThat doesnt do what expected. thrown and not caught will be 500 - can tell spring to put them as a 404
 	}
 	
-	@Test  
+	@Test  // this doesnt work
 	void testMonthNotFound() throws MonthNotFoundException {		
 		Plants plant = new Plants(1, "Daffodil", "green", "October", "sun", "Yellow");
 		Plants plant2 = new Plants(2, "Daffodil", "green", "October", "sun", "Yellow");
