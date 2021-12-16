@@ -54,7 +54,7 @@ public class PlantsService {
 	public List<Plants> getSaved(String month) {
 		List<Plants> saved = this.repo.getAllByPlantingMonth(month);
 		return saved;
-		
+		 
 	}
 
 	public Plants getPlantByName(String name) throws PlantsNotFoundException {

@@ -90,7 +90,7 @@ As well as the basic application framework 2 custom exceptions were also written
 Before I got the front-end working I used postman to send the HTTP requests. This helped me determine whether functions were working in the back-end before I tried them in the front-end. 
 
 ### Testing
-For this application both unit testing and integration testing was done. Overall it has ~81% test coverage (see figure 10).
+For this application both unit testing and integration testing was done. Overall it has ~81% test coverage (see figure 11).
 MockMVC was used for integration testing (figure 12) and JUnit/Mockito was used for the unit testing (figure 13)
 
 ![testCoverage](images/testCoverage.png)
@@ -109,14 +109,15 @@ The front-end of the application is written using HTML, CSS and JavaScript. The 
 ![finalWeb](images/finalWeb.png)
 > figure 14: A snapshot of the final website, showing before any options are selected
 
-> figure 15: A snapshot of the final website after read all is selected
+![readAll](images/readAll.png)
+> figure 15: A snapshot of the final website after read all and create are selected
 
 JavaScript was used for the front-end logic. It was used to create the input forms when create, update and search functions were selected, as well as interacting with the back-end when needed. 
 
 The final website went through a lot of iterations before I was happy with the final one (figure 14-15), below are some of the evolutionary stages of the front-end(figure 16).
 
 ![webEvol](images/webEvol.png)
-> figure 16: Evolution of the website throughout the project week. 
+> figure 16: Evolution of the website throughout the project week, showing in particular the difficulties faces with getting the bootstrap cards to behave as desired. 
 
 ### Continued Development
 If I were to have more time to develop the application further I would focus on:
