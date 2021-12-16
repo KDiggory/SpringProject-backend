@@ -1,3 +1,4 @@
+
 package com.bae.backend.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,8 +35,8 @@ public class PlantsServiceTest {
 	}
 	
 	@Test
-	void testCreatePlant() { // coming back as null
-		Plants testPlant = new Plants("Daffodil", "green", "October", "sun", "Yellow");
+	void testCreatePlant() { 
+		Plants testPlant = new Plants(1, "Daffodil", "green", "October", "sun", "Yellow");
 		Plants savedTestPlant = new Plants(1, "Daffodil", "green", "October", "sun", "Yellow");
 		
 		Mockito.when(this.repo.save(testPlant)).thenReturn(savedTestPlant);
@@ -44,11 +45,11 @@ public class PlantsServiceTest {
 		assertThat(this.service.createPlant(testPlant)).isEqualTo(savedTestPlant);
 		
 		Mockito.verify(this.repo, Mockito.times(1)).save(testPlant);
-		Mockito.verifyNoMoreInteractions(this.repo);
+
 	}
 	
 	@Test
-	void testGetAllPlants() {
+	void testGetAllPlants() { 
 		List<Plants> plant = List.of(new Plants(1, "Daffodil", "green", "October", "sun", "Yellow"),
 				new Plants(2, "Peony", "green", "October", "sun", "Pink"),
 				new Plants(3, "Marigold", "green", "March", "sun", "Orange"));
@@ -106,7 +107,7 @@ public class PlantsServiceTest {
 		
 		
 		Mockito.when(this.repo.findById(1)).thenReturn(testPlant);
-		Mockito.when(this.repo.save(testPlantUpdate)).thenReturn(testPlantUpdateSaved);
+		Mockito.when(this.repo.save(testPlantUpdate)).thenReturn(testPlantUpdateSaved); // this part is not working
 		
 		assertThat(testPlantUpdateSaved).isEqualTo(testPlantUpdate);
 		

@@ -26,7 +26,7 @@ import com.bae.backend.entity.Plants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc // sets up the mockmvc object
+@AutoConfigureMockMvc 
 @Sql(scripts = { "classpath:plant-schema.sql",
 		"classpath:plant-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 @ActiveProfiles("test")
@@ -41,7 +41,7 @@ public class PlantsControllerTest {
 	@Test
 	void testCreate() throws Exception {
 		Plants plant = new Plants("Daffodil", "green", "October", "sun", "Yellow");
-		String plantAsJSON = this.mapper.writeValueAsString(plant);
+		String plantAsJSON = this.mapper.writeValueAsString(plant); 
 
 		RequestBuilder req = post("/createPlant").contentType(MediaType.APPLICATION_JSON).content(plantAsJSON);
 

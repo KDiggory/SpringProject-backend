@@ -35,7 +35,7 @@ public class PlantsController {
 
 	@PostMapping("/createPlant")
 	public ResponseEntity<Plants> createPlant(@RequestBody Plants plant) {
-		Plants created = this.service.createPlant(plant);
+		 this.service.createPlant(plant);
 		ResponseEntity<Plants> response = new ResponseEntity<Plants>(plant, HttpStatus.CREATED);
 		return response;
 	}
@@ -58,7 +58,6 @@ public class PlantsController {
 	public ResponseEntity<List<Plants>> getPlantByMonth(@PathVariable String month) throws MonthNotFoundException {
 		return ResponseEntity.ok(this.service.getByPlantingMonth(month));
 	}
-	
 	
 	@PutMapping("/updatePlant/{id}") 
 	public ResponseEntity<Plants> updatePlant(@PathVariable Integer id, @RequestBody Plants newPlant) throws PlantsNotFoundException {
