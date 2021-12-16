@@ -40,8 +40,8 @@ Once the Jira board was done I started to think about how the front-end would lo
 
 I made 2 repositories on GitHub, one for the front-end and one for the backend. Both were linked to my Jira board for smart commits, and I used the feature branch model for both. Only merging the Dev branch into main once I was finished with the project. 
 
-///// put in pictures of git branches - showing feature branch model. 
-> figure 3: Image from GitHub showing the feature branches for the front-end of the application. 
+![git](images/git.png) 
+> figure 3: Image from GitHub showing the feature branches for the back-end of the application. The image was taken before Dev was merged into the main branch. 
 
 ### Databases
 
