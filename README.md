@@ -27,7 +27,7 @@ HTML, JavaScript and CSS
 ### Planning Phase
 
 As the brief was to make a list application I chose something I was interested in, plants. Using Jira I made a scrum board with epics and user stories as well as linked issues to help me navigate producing the back-end and front-end parts of the project (figure 1). 
-![JiraRoadmap](images/JiraRoadmap.png)
+![JiraRoadmap](images/JiraRoadmap.PNG)
 > figure 1: A snapshot of the Jira board showing the project epics, one of which in detail showing user stories. 
 
 Once the Jira board was done I started to think about how the front-end would look (figure 2), I did this in powerpoint and tried to stick to it where I could, but also made changes based on how it looked whilst working. Below you can see the initial design.
